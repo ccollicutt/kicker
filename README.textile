@@ -1,3 +1,64 @@
 h1. kicker
 
 kicker is a python command line app that will take some arguments and create a kickstart file based on those arguments from a set of common template files. It will support dom0, domU, and baremetal configurations.
+
+h2. Example use
+
+This is the template that will be created by default, with no command line options.
+
+<pre>
+$ ./kicker.py > default_example.ks
+$ cat default_example.ks 
+install
+lang en_US.UTF-8
+keyboard us
+rootpw --istcrypted kicker
+firewall --enabled --port=22:tcp,161:udp
+authconfig --enableshadow --enablemd5
+selinux --disabled
+timezone --utc America/Edmonton
+services --enabled ntpd --disabled gpm,yum-updatesd,rhnsd,bluetooth,cups
+bootloader --location=mbr --driveorder=xvda
+clearpart --initlabel --linux --drives=xvda
+part /boot --fstype ext3 --size=512 --ondisk=xvda
+part pv.2 --size=1 --grow --ondisk=xvda
+volgroup vmsystem --pesize=32768 pv.2
+logvol swap --fstype swap --name=swapfs --vgname=vmsystem --size=512 --grow --maxsize=4096
+logvol / --fstype ext3 --name=rootfs --vgname=vmsystem --size=256 --grow --maxsize=512
+logvol /usr --fstype ext3 --name=usrfs --vgname=vmsystem --size=1536 --grow --maxsize=4096
+logvol /opt --fstype ext3 --name=optfs --vgname=vmsystem --size=512 --grow --maxsize=1024
+logvol /tmp --fstype ext3 --name=tmpfs --vgname=vmsystem --size=256 --grow --maxsize=512
+logvol /var --fstype ext3 --name=varfs --vgname=vmsystem --size=256 --grow --maxsize=2048
+logvol /var/log --fstype ext3 --name=varlogfs --vgname=vmsystem --size=1024 --grow --maxsize=3072
+logvol /var/lib --fstype ext3 --name=varlibfs --vgname=vmsystem --size=1536 --grow --maxsize=2048
+
+%packages --nobase
+coreutils
+SysVinit
+chkconfig
+initscripts
+mingetty
+module-init-tools
+audit
+bzip2
+crontabs
+logrotate
+man
+ntp
+sendmail
+procps
+psacct
+which
+perl
+bash
+net-snmp
+tar
+rsync
+rcs
+openssh-clients
+
+%post
+# Configure ssh to not allow password based authentication so you don't get bruteforced
+sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
+
+</pre>
