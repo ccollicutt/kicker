@@ -5,9 +5,9 @@ key $key
 lang en_US.UTF-8
 keyboard us
 #if $encrypted
-rootpw $rootpw
+rootpw --istcrypted $rootpw
 #else
-rootpw --iscrypted $rootpw
+rootpw $rootpw
 #end if
 firewall --enabled --port=22:tcp,161:udp
 authconfig --enableshadow --enablemd5
