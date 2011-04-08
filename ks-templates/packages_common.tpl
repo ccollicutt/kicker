@@ -21,3 +21,6 @@ tar
 rsync
 rcs
 openssh-clients
+anacron
+vixie-cron
+crontabs
