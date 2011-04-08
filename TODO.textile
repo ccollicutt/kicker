@@ -1,0 +1,4 @@
+h1. TODO
+
+* Setup git to @s#/working/dir/#/etc/kicker#@
+* Way better error handling. Actually error handling at all would be good. :)
