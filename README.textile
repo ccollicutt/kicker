@@ -1,1 +1,3 @@
 h1. kicker
+
+kicker is a python command line app that will take some arguments and create a kickstart file based on those arguments from a set of common template files. It will support dom0, domU, and baremetal configurations.
