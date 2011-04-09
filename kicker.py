@@ -8,7 +8,7 @@ import ConfigParser
 from optparse import OptionParser
 
 VERSION = "0.0.1"
-CONFIG_FILE="/home/curtis/working/kicker/kicker.conf"
+CONFIG_FILE = "/home/curtis/working/kicker/kicker.conf"
          
 def main(args):
 
