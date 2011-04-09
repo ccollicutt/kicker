@@ -7,8 +7,8 @@ from Cheetah.Template import Template
 import ConfigParser
 from optparse import OptionParser
 
-version = "0.0.1"
-config_file="/home/curtis/working/kicker/kicker.conf"
+VERSION = "0.0.1"
+CONFIG_FILE="/home/curtis/working/kicker/kicker.conf"
          
 def main(args):
 
@@ -28,7 +28,7 @@ def main(args):
 
     # From config file
     conf = ConfigParser.ConfigParser()
-    conf.read(config_file)
+    conf.read(CONFIG_FILE)
 
     main_template = conf.get('default', 'main_template')
     if not opts.templatedir:
