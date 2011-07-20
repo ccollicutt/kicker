@@ -92,10 +92,10 @@ def main(args):
         
     if opts.rootpw:
         t.rootpw = opts.rootpw
-        t.encrypted = True
+        t.isencrypted = True
     else:
         t.rootpw = conf.get('password', 'rootpw')
-        t.encrypted = conf.get('password', 'isencrypted')
+        t.isencrypted = conf.get('password', 'isencrypted')
         
     if opts.timezone:
         t.timezone = opts.timezone
@@ -111,8 +111,11 @@ def main(args):
     # Disk and volume names
     #
     
-    if t.mode == 'domU':
-        t.disk_type = conf.get('disk', 'default_domU')
+    if t.mode == 'domU_xen':
+        t.disk_type = conf.get('disk', 'default_domU_xen')
+        t.system_vg_name = conf.get('volume_name', 'default_domU')
+    elif t.mode == 'domU_kvm':
+        t.disk_type = conf.get('disk', 'default_domU_kvm')
         t.system_vg_name = conf.get('volume_name', 'default_domU')
     elif t.mode == "baremetal":
         t.disk_type = conf.get('disk', 'default_baremetal')
@@ -121,7 +124,7 @@ def main(args):
         t.disk_type = conf.get('disk', 'default_dom0')
         t.system_vg_name = conf.get('volume_name', 'default_dom0')
     else:
-        print "Error: mode must be [domU|dom0|baremetal]"
+        print "Error: mode must be [domU_xen|domU_kvm|dom0|baremetal]"
         sys.exit(1)
          
     print(t.respond())
