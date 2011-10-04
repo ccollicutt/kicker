@@ -17,7 +17,7 @@ def main(args):
     parser.add_option("-n", "--netmask", dest="netmask")
     parser.add_option("-m", "--mode", dest="mode")
     parser.add_option("-f", "--filesystem", dest="fs")
-    parser.add_option("-m", "--os", dest="os")
+    parser.add_option("-o", "--os", dest="os")
     parser.add_option("-k", "--key", dest="key")
     parser.add_option("-r", "--rootpw", dest="rootpw", help="Hashed root password, if not set, rootpw is 'kicker''")
     parser.add_option("-t", "--timezone", dest="timezone", help="Timezone in 'American/Edmonton' format")
