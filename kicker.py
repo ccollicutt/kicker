@@ -9,13 +9,14 @@ from optparse import OptionParser
 
 VERSION = "0.0.3"
 CONFIG_FILE = "/home/curtis/working/kicker/kicker.conf"
+AVAILABLE_MODES = "[domU_xen|domU_kvm|dom0|baremetal]"
          
 def main(args):
     parser = OptionParser(conflict_handler="resolve")
     parser.add_option("-i", "--ipaddress", dest="ipaddress")
     parser.add_option("-g", "--gateway", dest="gateway")
     parser.add_option("-n", "--netmask", dest="netmask")
-    parser.add_option("-m", "--mode", dest="mode")
+    parser.add_option("-m", "--mode", dest="mode", help="Must be one of these: %s" % AVAILABLE_MODES)
     parser.add_option("-f", "--filesystem", dest="fs")
     parser.add_option("-o", "--os", dest="os")
     parser.add_option("-k", "--key", dest="key")
@@ -160,7 +161,7 @@ def main(args):
         t.disk_type = conf.get('disk', 'default_dom0')
         t.system_vg_name = conf.get('volume_name', 'default_dom0')
     else:
-        print >> sys.stderr, "Error: mode must be set to [domU_xen|domU_kvm|dom0|baremetal]"
+        print >> sys.stderr, "Error: mode must be set to %s" % AVAILABLE_MODES
         sys.exit(1)
          
     print(t.respond())
