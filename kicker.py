@@ -13,18 +13,18 @@ AVAILABLE_MODES = "[domU_xen|domU_kvm|dom0|baremetal]"
          
 def main(args):
     parser = OptionParser(conflict_handler="resolve")
-    parser.add_option("-i", "--ipaddress", dest="ipaddress")
-    parser.add_option("-g", "--gateway", dest="gateway")
-    parser.add_option("-n", "--netmask", dest="netmask")
+    parser.add_option("-i", "--ipaddress", dest="ipaddress", help="Set the ip address for the host in the kickstart")
+    parser.add_option("-g", "--gateway", dest="gateway", help="Set the gateway for the new host in the kickstart")
+    parser.add_option("-n", "--netmask", dest="netmask", help="Set the netmask for the new host in the kickstart")
     parser.add_option("-m", "--mode", dest="mode", help="Must be one of these: %s" % AVAILABLE_MODES)
-    parser.add_option("-f", "--filesystem", dest="fs")
-    parser.add_option("-o", "--os", dest="os")
-    parser.add_option("-k", "--key", dest="key")
-    parser.add_option("-r", "--rootpw", dest="rootpw", help="Hashed root password, if not set, rootpw is 'kicker''")
+    parser.add_option("-f", "--filesystem", dest="fs", help="What file system to format the partitions, eg. ext3 or ext4")
+    parser.add_option("-o", "--os", dest="os", help="What os to create a kickstart for, eg. rhel5 or rhel6")
+    parser.add_option("-k", "--key", dest="key", help="If you have a Redhat install key number")
+    parser.add_option("-r", "--rootpw", dest="rootpw", help="Hashed root password. If not set, root pw is 'kicker'")
     parser.add_option("-t", "--timezone", dest="timezone", help="Timezone in 'American/Edmonton' format")
-    parser.add_option("-d", "--nameservers", dest="nameservers", help="nameservers in appropriate kickstart format")
-    parser.add_option("-h", "--hostname", dest="hostname")
-    parser.add_option("-p", "--template-dir", dest="templatedir")
+    parser.add_option("-d", "--nameservers", dest="nameservers", help="Nameservers in appropriate kickstart format")
+    parser.add_option("-h", "--hostname", dest="hostname", help="Set the hostname for the new host in the kickstart")
+    parser.add_option("-p", "--template-dir", dest="templatedir", help="Directory where the kickstart template files are located")
     (opts, args) = parser.parse_args()
 
     # From config file
