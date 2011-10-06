@@ -1,6 +1,0 @@
-h1. TODO
-
-* Setup git to @s#/working/dir/#/etc/kicker#@
-* Way better error handling. Actually error handling at all would be good. :)
-* Add code to create gateway based on IP address. Eg. if IP is a.b.c.d then gw is a.b.c.1
-* Seems to be a problem with the "isencrypted" logic...will isencrypted: False be used like I expect in config file?
