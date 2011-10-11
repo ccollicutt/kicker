@@ -12,6 +12,9 @@ except ImportError:
 import ConfigParser
 from optparse import OptionParser
 
+from IPython.Shell import IPShellEmbed
+ipshell = IPShellEmbed()
+
 VERSION = "0.0.3"
 CONFIG_FILE = "/home/curtis/working/kicker/kicker.conf"
 AVAILABLE_MODES = "[domU_xen|domU_kvm|dom0|baremetal]"
@@ -97,9 +100,7 @@ def main(args):
         configfile = CONFIG_FILE
 
     # Make sure the config file exists
-    try:
-        os.isfile(configfile)
-    except:
+    if not os.path.isfile(configfile):
         print >>sys.stderr, 'ERROR: Can\'t open the config file %s' % opts.configfile
         sys.exit(1)
 
@@ -110,9 +111,25 @@ def main(args):
         ## FIXME
         pass 
 
-    main_template = conf.get('default', 'main_template')
+    try:
+        main_template = conf.get('default', 'main_template')
+    except:
+        print >>sys.stderr, \
+        'ERROR: Could not get main template location from %s' % configfile
+        sys.exit(1)
+
     if not opts.templatedir:
-        templatedir = conf.get('default', 'templatedir')
+        try:
+            templatedir = conf.get('default', 'templatedir')
+        except:
+            print >>sys.stderr, \
+            'ERROR: Bad template directory of %s' % templatedir
+            sys.exit(1)
+
+    if not os.path.isdir(templatedir):
+        print >>sys.stderr, \
+        'ERROR: Template path %s is not a directory' % templatedir
+        sys.exit(1)
     
     # Change to template dir
     pwd = os.getcwd()
@@ -242,6 +259,8 @@ def main(args):
     else:
         print >> sys.stderr, "Error: mode must be set to %s" % AVAILABLE_MODES
         sys.exit(1)
+
+    ipshell()
          
     print(t.respond())
     os.chdir(pwd)
