@@ -19,7 +19,6 @@ except ImportError:
 
 VERSION = "0.0.4"
 CONFIG_FILE = "/home/curtis/working/kicker/kicker.conf"
-AVAILABLE_MODES = "[domU_xen|domU_kvm|dom0|baremetal]"      
 
 def main(args):
     """Much of this taken from 
@@ -88,12 +87,7 @@ def main(args):
     parser.add_argument(
         "-m", "--mode", 
         dest="mode", 
-        help="Must be one of these: %s" % AVAILABLE_MODES
-    )
-    parser.add_argument(
-        "-f", "--filesystem", 
-        dest="fs", 
-        help="What file system to format the partitions, eg. ext3 or ext4"
+        help="Set a mode, eg. domU_kvm or dom0"
     )
     parser.add_argument(
         "-o", "--os", 
@@ -148,10 +142,6 @@ def main(args):
 
     # Create template object
     t = Template(file=args.main_template, searchList=[d])
-
-    # License key
-    if not args.has_license_key:
-        t.has_license_key = False
 
     print(t.respond())
     
