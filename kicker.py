@@ -145,6 +145,8 @@ def main(args):
     t = Template(file=args.main_template, searchList=[d])
 
     print(t.respond())
+    os.chdir(pwd)
+    sys.exit(0)
     
 if __name__ == '__main__':
     main(sys.argv)
