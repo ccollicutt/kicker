@@ -21,8 +21,9 @@ VERSION = "0.0.4"
 CONFIG_FILE = "/home/curtis/working/kicker/kicker.conf"
 
 def main(args):
-    """Much of this taken from 
-    http://blog.vwelch.com/2011/04/combining-configparser-and-argparse.html"""
+    
+    #Much of the argparse/configparser parts taken from 
+    #http://blog.vwelch.com/2011/04/combining-configparser-and-argparse.html
 
     conf_parser = argparse.ArgumentParser(
         # Turn off help, so we print all options in response to -h
@@ -127,8 +128,7 @@ def main(args):
     # Capture args
     args = parser.parse_args()
 
-    # Makes args into a dictionary
-
+    # Makes args into a dictionary to feed to searchList
     d = args.__dict__
 
     # Change to template dir
@@ -141,6 +141,7 @@ def main(args):
         sys.exit(1)
 
     # Create template object
+    # - the searchList=[d] is the best!
     t = Template(file=args.main_template, searchList=[d])
 
     print(t.respond())
