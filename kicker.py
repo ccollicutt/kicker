@@ -126,7 +126,7 @@ def main(args):
     )
 
     # Capture args
-    args = parser.parse_args()
+    args = parser.parse_args(remaining_argv)
 
     # Makes args into a dictionary to feed to searchList
     d = args.__dict__
